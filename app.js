@@ -43,6 +43,25 @@ app.get("/", async function (req, res) {
     }
 });
 
+// edit ite
+app.post("/edit-item", async (req, res) => {
+    try {
+        const data = req.body;
+        await db.collection("plans").findOneAndUpdate({
+            _id: data._id,
+    },
+        {
+            $set: {
+                reja: data.new_input,
+            }
+        }
+    )
+        ;
+        res.json({state: "success"});
+    } catch (e) {
+        console.log("Error in editing item:", e);
+    }
+})
 
 // Deleting item
 app.post("/delete-item", async (req, res) => {
